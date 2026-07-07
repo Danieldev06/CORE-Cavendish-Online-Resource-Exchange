@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORE - Cavendish Online Resource Exchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy: #0A2540;
+            --navy-light: #1B2A4A;
+            --navy-dark: #06192E;
+            --white: #FFFFFF;
+            --gold: #D4AF37;
+            --gold-light: #E8C94A;
+            --gray-light: #F8F9FA;
+            --gray: #E9ECEF;
+            --gray-dark: #6C757D;
+            --shadow: 0 4px 20px rgba(10, 37, 64, 0.10);
+            --shadow-hover: 0 8px 40px rgba(10, 37, 64, 0.20);
+            --radius: 12px;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gray-light);
+            color: #1A1A1A;
+        }
+        
+        /* ============================================================
+           NAVBAR STYLES
+           ============================================================ */
+        .navbar-custom {
+            background: var(--navy);
+            padding: 12px 0;
+            box-shadow: 0 2px 12px rgba(10, 37, 64, 0.3);
+        }
+        
+        .navbar-custom .navbar-brand {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 24px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80%;
+        }
+        
+        .navbar-custom .navbar-brand span {
+            color: var(--gold);
+        }
+        
+        .navbar-custom .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .navbar-custom .nav-link:hover {
+            color: var(--white) !important;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+        
+        .navbar-custom .nav-link.active {
+            color: var(--white) !important;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+        }
+        
+        /* ===== FIX: HAMBURGER ICON VISIBLE ON DARK BACKGROUND ===== */
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.3);
+            padding: 8px 10px;
+        }
+        
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        .navbar-toggler:hover {
+            border-color: var(--gold);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* ===== FIX: MOBILE NAV ITEMS ===== */
+        @media (max-width: 992px) {
+            .navbar-custom .navbar-nav {
+                margin-top: 10px;
+                gap: 6px !important;
+            }
+            .navbar-custom .nav-link {
+                padding: 10px 16px;
+                width: 100%;
+                text-align: center;
+                border-radius: 8px;
+            }
+            .navbar-custom .btn {
+                width: 100%;
+                text-align: center;
+                margin-top: 4px;
+            }
+            .navbar-custom .text-light {
+                text-align: center;
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+            }
+            /* Fix for the user greeting on mobile */
+            .navbar-custom .me-2 {
+                margin-right: 0 !important;
+            }
+        }
+        
+        /* ===== FIX: SMALLER BRAND ON EXTRA SMALL SCREENS ===== */
+        @media (max-width: 576px) {
+            .navbar-custom .navbar-brand {
+                font-size: 18px;
+            }
+        }
+        
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
+        .btn-gold {
+            background: var(--gold);
+            color: var(--navy);
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+            color: var(--navy);
+        }
+        
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            padding: 80px 0 60px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+        
+        .hero h1 .highlight { 
+            color: var(--gold); 
+        }
+        
+        .hero .tagline {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-left: 3px solid var(--gold);
+            padding-left: 16px;
+        }
+        
+        .hero p { 
+            color: rgba(255, 255, 255, 0.7); 
+            font-size: 18px; 
+            max-width: 480px; 
+        }
+        
+        .hero-stats .stat-number { 
+            font-size: 32px; 
+            font-weight: 800; 
+            color: var(--gold); 
+        }
+        
+        .hero-stats .stat-label { 
+            font-size: 13px; 
+            color: rgba(255, 255, 255, 0.6); 
+        }
+        
+        .visual-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .visual-box .acronym {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 24px;
+            margin-top: 16px;
+            text-align: left;
+        }
+        
+        .visual-box .acronym span {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .text-gold { color: var(--gold); }
+        
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        .footer h5 { color: var(--white); font-weight: 600; }
+        .footer a { color: rgba(255, 255, 255, 0.6); text-decoration: none; }
+        .footer a:hover { color: var(--gold); }
+        .footer .bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        /* ============================================================
+           RESPONSIVE ADJUSTMENTS
+           ============================================================ */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .hero p { max-width: 100%; }
+            .hero-stats .stat-number { font-size: 24px; }
+            .visual-box .acronym {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 50px 0 40px;
+            }
+            .hero h1 { font-size: 28px; }
+            .hero .tagline { font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    NAVIGATION - FIXED BRAND OVERLAP
+    ============================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <!-- Brand: Full text on larger screens, "CORE" only on mobile -->
+            <a class="navbar-brand" href="{% url 'landing' %}">
+                <i class="fas fa-graduation-cap" style="color: var(--gold);"></i>
+                CORE
+                <span class="d-none d-sm-inline">| Cavendish Online Resource Exchange</span>
+            </a>
+            
+            <!-- Hamburger Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" 
+                    aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Collapsible Menu -->
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'landing' %}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'about' in request.path %}active{% endif %}" href="{% url 'about' %}">
+                            <i class="fas fa-info-circle"></i> About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'features' in request.path %}active{% endif %}" href="{% url 'features' %}">
+                            <i class="fas fa-star"></i> Features
+                        </a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if 'dashboard' in request.path %}active{% endif %}" href="{% url 'home' %}">
+                                <i class="fas fa-dashboard"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="text-light me-2">
+                                <i class="fas fa-user-circle"></i> {{ user.username }}
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm" href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-gold btn-sm" href="{% url 'register' %}">
+                                <i class="fas fa-user-plus"></i> Register
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    MAIN CONTENT
+    ============================================================ -->
+    <main>
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-graduation-cap" style="color: var(--gold);"></i> CORE</h5>
+                    <p>Cavendish Online Resource Exchange — Preserving knowledge. Breaking the loop.</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'landing' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'features' %}">Features</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5>Account</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Notes</a></li>
+                        <li><a href="#">Past Papers</a></li>
+                        <li><a href="#">Dissertations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bottom">
+                &copy; 2026 CORE — Cavendish Online Resource Exchange. Cavendish University Zambia. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    BOOTSTRAP JS - REQUIRED FOR TOGGLER TO WORK
+    ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

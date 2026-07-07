@@ -1,0 +1,46 @@
+{% extends 'repository/base_public.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow">
+                <div class="card-header" style="background: var(--navy); color: var(--white);">
+                    <h4 class="mb-0"><i class="fas fa-sign-in-alt" style="color: var(--gold);"></i> Sign In</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Welcome back! Sign in to access your resources.</p>
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label fw-bold">Username</label>
+                            {{ form.username }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.password.id_for_label }}" class="form-label fw-bold">Password</label>
+                            {{ form.password }}
+                        </div>
+                        
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                Invalid username or password. Please try again.
+                            </div>
+                        {% endif %}
+                        
+                        <button type="submit" class="btn-gold w-100 py-2">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <p class="text-muted">Don't have an account? <a href="{% url 'register' %}" style="color: var(--gold);">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
