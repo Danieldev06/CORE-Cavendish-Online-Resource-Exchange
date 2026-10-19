@@ -1,46 +1,13 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyc
-*.pyd
-.Python
-*.so
-*.egg
-*.egg-info/
+node_modules/
 dist/
 build/
+.cache/
+.env*
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
 *.log
-
-# Django
-*.sqlite3
-db.sqlite3
-media/
-staticfiles/
-
-# Virtual Environment
-venv/
-env/
-ENV/
-.env
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Secret Files
-*.env
-*.secret
-*.key
-
-# Coverage
-.coverage
-htmlcov/
-
-# MyPy
-.mypy_cache/
+.claude-replay.*
+.tmp-*
